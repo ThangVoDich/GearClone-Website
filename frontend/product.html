@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chi tiết sản phẩm - GEARCLONE</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <script src="js/product.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <style>
+    /* Mega menu custom */
+    .mega-menu {
+      width: 80vw;
+      left: 0;
+      right: 0;
+      top: 80%;
+      padding: 2rem;
+      background-color: #f8f9fa;
+      display: none;
+      border-radius: 0;
+      border: none;
+      position: absolute;
+      z-index: 999;
+    }
+    .navbar .dropdown:hover .mega-menu {
+      display: block;
+    }
+    .mega-menu a {
+      display: block;
+      color: #000;
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+    }
+    .mega-menu h6 {
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔝 Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark position-relative w-100">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="index.html">GEARCLONE</a>
+
+    <!-- 🔽 Mega Menu -->
+    <div class="dropdown">
+      <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="megaMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        ☰ Danh mục sản phẩm
+      </a>
+      <div class="dropdown-menu mega-menu" aria-labelledby="megaMenuDropdown">
+        <div class="row">
+          <div class="col-md-3">
+            <h6>Laptop</h6>
+            <a href="category.html?type=laptop&sub=laptop-gaming">Laptop Gaming</a>
+            <a href="category.html?type=laptop&sub=laptop-vanphong">Laptop văn phòng</a>
+            <a href="category.html?type=laptop&sub=macbook">MacBook</a>
+          </div>
+          <div class="col-md-3">
+            <h6>Máy tính</h6>
+            <a href="category.html?type=pc&sub=pc-gaming">PC Gaming</a>
+            <a href="category.html?type=pc&sub=pc-dohoa">PC Đồ họa</a>
+            <a href="category.html?type=pc&sub=pc-vanphong">PC Văn phòng</a>
+          </div>
+          <div class="col-md-3">
+            <h6>Phụ kiện</h6>
+            <a href="category.html?type=accessories&sub=ban-phim">Bàn phím</a>
+            <a href="category.html?type=accessories&sub=chuot">Chuột</a>
+            <a href="category.html?type=accessories&sub=tai-nghe">Tai nghe</a>
+          </div>
+          <div class="col-md-3">
+            <h6>Linh kiện</h6>
+            <a href="category.html?type=component&sub=cpu">CPU</a>
+            <a href="category.html?type=component&sub=mainboard">Mainboard</a>
+            <a href="category.html?type=component&sub=ram">RAM</a>
+            <a href="category.html?type=component&sub=ssd-hdd">SSD, HDD</a>
+            <a href="category.html?type=component&sub=gpu">GPU</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+   <!-- 🔍 Search -->
+      <form class="d-flex align-items-center ms-auto me-3 position-relative" role="search" id="searchForm"
+        style="max-width: 300px;">
+        <input class="form-control form-control-sm me-2" type="search" placeholder="Tìm sản phẩm..." id="searchInput"
+          autocomplete="off">
+        <button class="btn btn-sm btn-outline-light" type="submit">Tìm</button>
+        <div id="searchSuggestions" class="list-group position-absolute"
+          style="top: 100%; left: 0; right: 0; z-index: 9999; display: none;"></div>
+      </form>
+
+    <!-- 👤 User dropdown -->
+    <div class="dropdown me-3" id="user-info-dropdown" style="display: none;">
+      <a href="#" class="btn btn-outline-light dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        👋 Xin chào, <span id="username-display"></span>
+      </a>
+        <ul class="dropdown-menu" aria-labelledby="userDropdown">
+        <li><a class="dropdown-item" href="profile.html">👤 Chỉnh sửa thông tin</a></li>
+        <li><a class="dropdown-item" href="order-history.html">📦 Xem đơn hàng</a></li>
+        <li><a class="dropdown-item" href="admin-dashboard.html" id="admin-link" style="display: none;">🛠 Admin </a></li>
+        <li><a class="dropdown-item text-danger" href="#" id="logoutBtn">🔓 Đăng xuất</a></li>
+      </ul>
+    </div>
+
+    <div id="user-login-link" class="text-white me-3">
+      <a href="login.html" class="text-white text-decoration-none">🔐 Đăng nhập</a>
+    </div>
+
+    <a href="cart.html" class="btn btn-outline-light">🛒 Giỏ hàng</a>
+  </div>
+</nav>
+<!-- 🖼️ Chi tiết sản phẩm -->
+<div class="container my-5" id="product-detail">
+  <div class="row">
+    <div class="col-md-5">
+      <img id="product-image" class="img-fluid rounded shadow" alt="Sản phẩm">
+    </div>
+    <div class="col-md-7">
+      <h3 id="product-name" class="fw-bold mb-3">Tên sản phẩm</h3>
+      <h4 class="text-danger fw-bold" id="product-price">0đ</h4>
+      <p id="product-description">Mô tả sản phẩm...</p>
+      <div class="d-flex gap-3 mt-3">
+  <button class="btn btn-primary" id="addToCartBtn">🛒 Thêm vào giỏ hàng</button>
+ <button class="btn btn-success" id="buyNowBtn" style="background-color: red; color: white;">🛍️ Mua ngay</button>
+
+</div>
+
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
+  <h4>⭐ Đánh giá sản phẩm</h4>
+  <div id="rating-info" class="mb-3">Chưa có đánh giá</div>
+
+  <div id="rating-form" style="display: none;">
+    <label>Chọn số sao:</label>
+    <select id="rating-stars" class="form-select w-auto d-inline-block mb-2">
+      <option value="5">5 sao</option>
+      <option value="4">4 sao</option>
+      <option value="3">3 sao</option>
+      <option value="2">2 sao</option>
+      <option value="1">1 sao</option>
+    </select>
+    <textarea id="rating-comment" class="form-control mb-2" placeholder="Viết nhận xét của bạn..."></textarea>
+    <button class="btn btn-sm btn-warning" onclick="submitRating()">Gửi đánh giá</button>
+  </div>
+
+  <hr>
+
+  
+  <div class="mb-3" id="comment-form">
+    <h4>💬 Comment</h4>
+    <input type="text" id="comment-name" class="form-control mb-2" placeholder="Tên của bạn">
+    <textarea id="comment-message" class="form-control mb-2" placeholder="Nội dung bình luận..."></textarea>
+    <button class="btn btn-primary" onclick="submitComment()">Gửi bình luận</button>
+  </div>
+
+  <div id="comment-list"></div>
+</div>
+
+<footer class="bg-dark text-white text-center py-3">
+&copy; 2025 GEARCLONE. Project done By ThangKhoaHiu.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const userData = localStorage.getItem("user");
+    const dropdown = document.getElementById("user-info-dropdown");
+    const loginLink = document.getElementById("user-login-link");
+    const usernameSpan = document.getElementById("username-display");
+
+    if (userData) {
+      const user = JSON.parse(userData);
+      dropdown.style.display = "block";
+      loginLink.style.display = "none";
+      usernameSpan.textContent = user.name || "User";
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        window.location.href = "index.html";
+      });
+    } else {
+      dropdown.style.display = "none";
+      loginLink.style.display = "block";
+    }
+  });
+</script>
+<script>
+  const API = location.hostname === "localhost"
+    ? "http://localhost:8888/api/products"
+    : "http://backend:5050/api/products";
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    // ==== Navbar logic ====
+    const userData = localStorage.getItem("user");
+    const dropdown = document.getElementById("user-info-dropdown");
+    const loginLink = document.getElementById("user-login-link");
+    const usernameSpan = document.getElementById("username-display");
+
+    if (userData) {
+      const user = JSON.parse(userData);
+      dropdown.style.display = "block";
+      loginLink.style.display = "none";
+      usernameSpan.textContent = user.name || "User";
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        window.location.href = "index.html";
+      });
+    } else {
+      dropdown.style.display = "none";
+      loginLink.style.display = "block";
+    }
+
+    // ==== Load product info ====
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get("id");
+
+    if (!productId) return;
+
+    try {
+      const res = await fetch(`${API}/${productId}`);
+      const product = await res.json();
+
+      document.getElementById("product-name").textContent = product.name;
+      document.getElementById("product-price").textContent = `${product.price.toLocaleString()}đ`;
+      document.getElementById("product-description").textContent = product.description;
+      document.getElementById("product-image").src = product.image;
+
+      // ==== Handle add to cart ====
+      document.querySelector("button.btn-primary").addEventListener("click", () => {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        const existing = cart.find(p => p.productId === product._id);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({
+            productId: product._id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: 1
+          });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert("Đã thêm vào giỏ hàng!");
+      });
+
+      // ==== Handle buy now ====
+      document.querySelector("button.btn-success").addEventListener("click", () => {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        const existing = cart.find(p => p.productId === product._id);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({
+            productId: product._id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: 1
+          });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        window.location.href = "cart.html"; // Chuyển hướng đến trang giỏ hàng
+      });
+
+    } catch (err) {
+      console.error("Lỗi tải sản phẩm:", err);
+    }
+  });
+</script>
+<script>
+  let productId = null;
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+  const API_BASE = location.hostname === "localhost"
+    ? "http://localhost:8888"
+    : "http://backend:5050";
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idFromUrl = urlParams.get("id");
+    if (!idFromUrl) return;
+
+    try {
+      const res = await fetch(`${API_BASE}/api/products/${idFromUrl}`);
+      const product = await res.json();
+
+      productId = product._id;
+      document.getElementById("product-name").textContent = product.name;
+      document.getElementById("product-price").textContent = `${product.price.toLocaleString()}đ`;
+      document.getElementById("product-description").textContent = product.description;
+      document.getElementById("product-image").src = product.image;
+
+      loadRating();
+      loadAllReviews();
+
+      if (token && user) {
+        document.getElementById("rating-form").style.display = "block";
+      }
+    } catch (err) {
+      console.error("Lỗi tải sản phẩm:", err);
+    }
+
+  });
+
+  async function submitRating() {
+    if (!productId || !token) return;
+    const stars = parseInt(document.getElementById("rating-stars").value);
+    const comment = document.getElementById("rating-comment").value.trim();
+
+    try {
+      const res = await fetch(`${API_BASE}/api/ratings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ productId, stars, comment })
+      });
+      const data = await res.json();
+      alert(data.message || "Đánh giá thành công!");
+      document.getElementById("rating-comment").value = "";
+      loadRating();
+      loadAllReviews();
+    } catch (err) {
+      alert("Lỗi gửi đánh giá");
+    }
+  }
+
+  async function submitComment() {
+    if (!productId) return;
+    const name = document.getElementById("comment-name").value.trim();
+    const message = document.getElementById("comment-message").value.trim();
+    if (!name || !message) return alert("Vui lòng điền đầy đủ thông tin");
+
+    try {
+      const res = await fetch(`${API_BASE}/api/comments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId, name, message })
+      });
+      await res.json();
+      document.getElementById("comment-message").value = "";
+      loadAllReviews();
+    } catch (err) {
+      alert("Lỗi gửi bình luận");
+    }
+  }
+
+  async function loadRating() {
+    if (!productId) return;
+    try {
+      const res = await fetch(`${API_BASE}/api/ratings/${productId}`);
+      const data = await res.json();
+      document.getElementById("rating-info").textContent = `⭐ Trung bình: ${data.average} (${data.total} đánh giá)`;
+    } catch (err) {
+      console.error("Lỗi tải đánh giá:", err);
+    }
+  }
+
+  async function loadAllReviews() {
+    if (!productId) return;
+
+    const res1 = await fetch(`${API_BASE}/api/comments/${productId}`);
+    const res2 = await fetch(`${API_BASE}/api/ratings/${productId}/all`);
+    const comments = await res1.json();
+    const ratings = await res2.json();
+
+    const all = [
+      ...ratings.map(r => ({
+        name: r.user?.name || "Người dùng",
+        message: r.comment,
+        stars: r.stars,
+        createdAt: r.createdAt
+      })),
+      ...comments.map(c => ({
+        name: c.name,
+        message: c.message,
+        stars: null,
+        createdAt: c.createdAt
+      }))
+    ];
+
+    all.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    const html = all.map(c => `
+      <div class="border rounded p-2 mb-2">
+        <strong>${c.name}</strong>
+        ${c.stars ? `<span class="text-warning">⭐ ${c.stars} sao</span>` : ""}
+        <small class="text-muted">${new Date(c.createdAt).toLocaleString()}</small>
+        <div>${c.message}</div>
+      </div>
+    `).join("");
+
+    document.getElementById("comment-list").innerHTML = html;
+  }
+
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      const commentForm = document.querySelector("#comment-name").closest(".mb-3"); // Chọn đúng form comment
+      if (commentForm) {
+        commentForm.style.display = "none";
+        console.log("✅ Đã login, ẩn form comment");
+      }
+    }
+  });
+</script>
+
+</body>
+
+</html>
+``` 

@@ -1,0 +1,48 @@
+body {
+    background-color: #f8f9fa;
+  }
+  
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  footer {
+    font-size: 14px;
+  }
+  /* Mega menu style */
+.mega-menu {
+  width: 100vw;
+  left: 0;
+  right: 0;
+  top: 100%;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  display: none;
+  border-radius: 0;
+  border: none;
+  position: absolute;
+  z-index: 9999;
+}
+
+.navbar .dropdown:hover .mega-menu {
+  display: block;
+}
+
+.mega-menu h6 {
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.mega-menu a {
+  display: block;
+  color: #000;
+  margin-bottom: 5px;
+  text-decoration: none;
+}
+
+.mega-menu a:hover {
+  text-decoration: underline;
+}
