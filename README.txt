@@ -1,134 +1,46 @@
-Real-time ASL Alphabet Recognition Using Hand Landmarks and MLP
- Overview
 
-This project implements a real-time American Sign Language (ASL) alphabet recognition system using hand landmarks extracted by MediaPipe and a lightweight Multi-Layer Perceptron (MLP) classifier.
+GEARCLONE - Final Project
+Web Programming with Node.js
 
-Instead of processing raw images, the system relies on geometric hand keypoints, which significantly reduces computational cost and enables real-time inference on CPU.
+Group Members:
+- Nguyễn Bảo Thắng – 522K0025
+- Nguyễn Nhật Khoa – 522K0028
+- Trần Hoàng Hiếu – 522K0036
 
- Key Idea
+---
 
-Hand images → MediaPipe Hands → 21 hand landmarks
+Project Description:
+GEARCLONE is a web-based e-commerce platform for selling computer components and accessories. It includes full functionality for both users and administrators, with account management, product catalog, cart, checkout, discount codes, loyalty points, and order tracking.
 
-Landmarks → 42-dimensional feature vector (x, y coordinates)
+---
 
-Feature vector → MLP classifier
+Technologies Used:
+- Frontend: HTML, CSS, Bootstrap, JavaScript
+- Backend: Node.js, Express.js
+- Database: MongoDB with Mongoose
+- Authentication: JWT & bcrypt
+- Email Service: Nodemailer
+- Deployment: Docker & Docker Compose
 
-Output → Predicted ASL letter displayed in real time
+---
 
-System Pipeline
+How to Run:
 
-Landmark Extraction
+1. Build and start containers:
+   docker compose up -d --build
 
-Hand landmarks are extracted from ASL alphabet images using MediaPipe.
+2. Access backend container:
+   docker exec -it backend bash
 
-Each sample is represented by 21 keypoints (x, y), forming a 42D vector.
+3. Seed admin and sample data:
+   node seed.js
 
-The extracted data is saved as a CSV file for training.
+4. Open in browser:
+   http://localhost:8889
 
-Model Training
+---
 
-A Multi-Layer Perceptron (MLP) is trained using TensorFlow/Keras.
+Default Admin Account:
+- Email: baothang0932@gmail.com
+- Password: 123456
 
-The task is formulated as a multi-class classification problem.
-
-Data is split into training and validation sets.
-
-Real-time Recognition
-
-Webcam input is processed frame by frame.
-
-Hand landmarks are extracted and passed into the trained MLP.
-
-A prediction buffer is applied to stabilize outputs.
-
-Users can confirm predicted letters to build text sequences.
-
- Dataset
-
-The training data is based on the ASL Alphabet Dataset, available on Kaggle:
-
- Kaggle link:
-https://www.kaggle.com/datasets/nguynbothng2/asl-alphabet-dataset
-
-Dataset setup
-
-Download the dataset from Kaggle.
-
-Extract it into the project directory as:
-
-data/asl_alphabet_train/
-
- How to Run
-1️ Install dependencies
-pip install -r requirements.txt
-
-2️ Extract hand landmarks
-python extract_landmarks_from_asl_alphabet.py
-
-
-This will generate:
-
-asl_landmark_data.csv
-
-3️ Train the MLP model
-python train_asl_landmark_mlp.py
-
-
-This will produce:
-
-asl_landmark_mlp_model.h5
-asl_landmark_labels.npy
-
-4️ Run real-time ASL recognition
-python realtime_asl_landmark_mlp.py
-
-
-Press c to confirm a predicted letter
-
-Press q to quit
-
-Technologies Used
-
-Python
-
-OpenCV – webcam capture and visualization
-
-MediaPipe Hands – hand landmark detection
-
-NumPy, Pandas – data processing
-
-TensorFlow / Keras – MLP training
-
-Scikit-learn – label encoding and data splitting
-
- Highlights
-
-Landmark-based approach instead of raw image classification
-
-Lightweight and efficient model suitable for real-time CPU inference
-
-Reduced sensitivity to background and lighting conditions
-
-Stable prediction mechanism using temporal buffering
-
- Future Work
-
-Extend from letter-level to word-level gesture recognition
-
-Incorporate temporal models (LSTM / Transformer) for sequence modeling
-
-Compare landmark-based approach with Vision Transformer (ViT) models
-
-Deploy as a web-based demo using Streamlit or WebRTC
-
- Learning Outcomes
-
-This project demonstrates:
-
-Practical application of Computer Vision for hand pose estimation
-
-Feature engineering using geometric landmarks
-
-End-to-end machine learning pipeline development
-
-Building real-time AI applications under performance constraints
